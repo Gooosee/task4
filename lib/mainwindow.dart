@@ -51,7 +51,7 @@ class _MainWindowState extends State<MainWindow> {
             items: const [
               BottomNavigationBarItem(
                 icon: Icon(Icons.home),
-                title: Text('Tab1'),
+                title: Text('Главная'),
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.report_problem),
