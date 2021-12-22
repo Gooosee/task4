@@ -17,9 +17,10 @@ class _Tab5State extends State<Tab5> with AutomaticKeepAliveClientMixin<Tab5> {
     print('build Tab5');
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tab5'),
+        title: Text('Станции'),
       ),
       body: Center(
+
         child: Text(
           'This is content of Tab5',
           style: TextStyle(fontSize: 30),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:task4/screens/tab1edit.dart';
+import 'tab1edit.dart';
 import '../constants.dart';
 
 class Tab1 extends StatefulWidget {
@@ -14,22 +15,30 @@ class _Tab1State extends State<Tab1> with AutomaticKeepAliveClientMixin<Tab1> {
   void initState() {
     super.initState();
   }
-
+  List<String> lstback = ['Фамилия Имя Отчество', '+7(937)-145-77-25', 'a@gmail.com', '20 December, 2021'];
   @override
   Widget build(BuildContext context) {
     final ButtonStyle style =
     TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Главная'),
 
-        actions: const <Widget>[
-          Center(
+        actions: <Widget>[
+          const Center (
             child: Text('Баланс: 150 баллов', style: TextStyle(fontSize: 20, ), textAlign: TextAlign.center,),
-          )
+          ),
+          IconButton(onPressed: () async {
+            final result = await Navigator.of(context).push(MaterialPageRoute(builder: (context) => Tab1Edit(lstback)));
+            setState(() {
+              lstback = result;
+              print(lstback);
+            });
+          }, icon: const Icon(Icons.settings))
         ],
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column (
             children: [
               const SizedBox(height: 10,),
@@ -37,33 +46,33 @@ class _Tab1State extends State<Tab1> with AutomaticKeepAliveClientMixin<Tab1> {
                 radius: 90,
                 foregroundImage: AssetImage("images/avatar.jpg"),
               ),
-              const Text('Фамилия Имя Отчество', style: tahinaStyleBig1),
+              Text(lstback[0], style: tahinaStyleBig1),
               const Text('Статус: VIP (Скидка: 10%)', style: tahinaStyleBig2),
               const Text('Пол: Женский', style: tahinaStyleBig3),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 25),
                 child: Card(
                   child: ListTile(
                     leading: Icon(Icons.call),
-                    title: Text("+7(937)145-77-25", style: KTSR3StyleSmall1),
+                    title: Text(lstback[1], style: KTSR3StyleSmall1),
                   ),
                 ),
               ),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 25),
                 child: Card(
                   child: ListTile(
                     leading: Icon(Icons.mail),
-                    title: Text("pochta@gmail.com", style: KTSR3StyleSmall1),
+                    title: Text(lstback[2], style: KTSR3StyleSmall1),
                   ),
                 ),
               ),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 25),
                 child: Card(
                   child: ListTile(
                     leading: Icon(Icons.date_range),
-                    title: Text("20 сентбря 2001 года", style: KTSR3StyleSmall1),
+                    title: Text(lstback[3], style: KTSR3StyleSmall1),
                   ),
                 ),
               ),
