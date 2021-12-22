@@ -17,7 +17,7 @@ class _Tab2State extends State<Tab2> with AutomaticKeepAliveClientMixin<Tab2> {
     print('build Tab2');
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tab2'),
+        title: Text('Аренда'),
       ),
       body: Center(
         child: Text(

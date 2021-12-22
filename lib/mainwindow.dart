@@ -55,7 +55,7 @@ class _MainWindowState extends State<MainWindow> {
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.report_problem),
-                title: Text('Tab2'),
+                title: Text('Аренда'),
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.settings),
