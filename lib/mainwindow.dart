@@ -54,19 +54,19 @@ class _MainWindowState extends State<MainWindow> {
                 title: Text('Главная'),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.report_problem),
+                icon: Icon(Icons.shopping_cart),
                 title: Text('Аренда'),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
-                title: Text('Tab3'),
+                icon: Icon(Icons.location_on),
+                title: Text('Станции'),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
+                icon: Icon(Icons.history),
                 title: Text('Tab4'),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
+                icon: Icon(Icons.report_problem),
                 title: Text('Tab5'),
               ),
             ]),

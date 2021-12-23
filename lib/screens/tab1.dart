@@ -20,13 +20,9 @@ class _Tab1State extends State<Tab1> with AutomaticKeepAliveClientMixin<Tab1> {
   @override
   Widget build(BuildContext context) {
 
-    final ButtonStyle style =
-    TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Главная'),
-
         actions: <Widget>[
           const Center (
             child: Text('Баланс: 150 баллов', style: TextStyle(fontSize: 20, ), textAlign: TextAlign.center,),
@@ -35,7 +31,6 @@ class _Tab1State extends State<Tab1> with AutomaticKeepAliveClientMixin<Tab1> {
             final result = await Navigator.of(context).push(MaterialPageRoute(builder: (context) => Tab1Edit(lstback)));
             setState(() {
               lstback = result;
-              print(lstback);
             });
           }, icon: const Icon(Icons.settings))
         ],

@@ -45,9 +45,6 @@ class _Tab1EditState extends State<Tab1Edit> {
     List lst1 = lst;
     List lSave = lst;
     if (selectedDate == DateTime(1900)) selectedDate = lst[3];
-    print(selectedDate);
-    final ButtonStyle style =
-    TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
     var maskFormatter = new MaskTextInputFormatter(mask: '+#(###)-###-##-##', filter: { "#": RegExp(r'[0-9]') });
     return WillPopScope(
         onWillPop: () async => false,
