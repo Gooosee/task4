@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_masked_text/flutter_masked_text.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:intl/intl.dart';
 
 import '../constants.dart';
@@ -41,13 +41,14 @@ class _Tab1EditState extends State<Tab1Edit> {
 
   @override
   Widget build(BuildContext context) {
+
     List lst1 = lst;
     List lSave = lst;
     if (selectedDate == DateTime(1900)) selectedDate = lst[3];
     print(selectedDate);
     final ButtonStyle style =
     TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
-    var controller = MaskedTextController(mask: '+0(000)-000-00-00');
+    var maskFormatter = new MaskTextInputFormatter(mask: '+#(###)-###-##-##', filter: { "#": RegExp(r'[0-9]') });
     return WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
@@ -81,12 +82,16 @@ class _Tab1EditState extends State<Tab1Edit> {
                     labelText: 'ФИО *',
                 ),
                   initialValue: lst[0],
+                  autovalidateMode: AutovalidateMode.always,
                   onChanged: (String? value){
                     lst1[0] = value!;
                     debugPrint(value);
                   },
-                  validator: (String? value) {
-                    return (value == null) ? 'Это обязательное поле для ввода' : null;
+                  validator: (value) {
+                    if (value != null && value.isNotEmpty) {
+                      return null;
+                    }
+                    return "Это поле не может быть пустым";
                   },
                 ),
               ),
@@ -96,12 +101,26 @@ class _Tab1EditState extends State<Tab1Edit> {
                 child: Card(
                   child: ListTile(
                     leading: const Icon(Icons.call),
-                    title: TextFormField(controller: controller,
+                    title: TextFormField(inputFormatters: [maskFormatter],
+                      autocorrect: false,
+                      keyboardType: TextInputType.phone,
+                      autovalidateMode: AutovalidateMode.always,
                       decoration: const InputDecoration(
+                        labelText: 'Номер телефона *',
                         border: InputBorder.none,
                         hintText: '+7(777)-777-77-77'
                       ), style: KTSR3StyleSmall1,
-                      //initialValue: lst[1],
+                      initialValue: lst[1],
+                      onChanged: (String? value){
+                        lst1[1] = value!;
+                        debugPrint(value);
+                      },
+                        validator: (value) {
+                          if (value != null && value.length == 17) {
+                            return null;
+                          }
+                          return "Неверный номер";
+                        }
                     ),
                   ),
                 ),
@@ -112,15 +131,21 @@ class _Tab1EditState extends State<Tab1Edit> {
                   child: ListTile(
                     leading: Icon(Icons.mail),
                     title: TextFormField(style: KTSR3StyleSmall1, initialValue: lst1[2], decoration: const InputDecoration(
-                        labelText: 'Електронная почта *',
+                      labelText: 'Адрес электронной почты *',
+                      border: InputBorder.none,
+                      hintText: 'example@gmail.com'
                     ),
+                        autovalidateMode: AutovalidateMode.always,
                         onChanged: (String? value){
                           lst1[2] = value!;
                           debugPrint(value);
                         },
-                        validator: (String? value) {
-                          return (value == null) ? 'Это обязательное поле для ввода' : null;
-                        },)
+                        validator: (value) {
+                          if (value != null && value.isNotEmpty && value.contains('@') && value.contains('.')) {
+                            return null;
+                          }
+                          return "Неверный адрес электронной почты";
+                        })
                   ),
                 ),
               ),
@@ -132,7 +157,7 @@ class _Tab1EditState extends State<Tab1Edit> {
 
                     leading: const Icon(Icons.date_range),
 
-                    title: Text(DateFormat.yMMMMd().format(selectedDate.toLocal()), style: KTSR3StyleSmall1),
+                    title: Text(DateFormat.yMMMMd('ru').format(selectedDate.toLocal()), style: KTSR3StyleSmall1),
                     trailing: IconButton(icon: const Icon(Icons.edit), onPressed: (){
                       _selectDate(context);
                     },),

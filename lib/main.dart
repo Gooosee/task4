@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'mainwindow.dart';
 //import 'tab_containter_load1time.dart';
 //import 'tab_containter_indexedstack.dart';
@@ -11,7 +12,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate
+      ],
+      supportedLocales: const [
+        Locale('ru'),
+        Locale('en')
+      ],
+      locale: const Locale('ru'),
+      title: 'Задача 4',
       theme: ThemeData(
         primarySwatch: Colors.lightBlue,
       ),

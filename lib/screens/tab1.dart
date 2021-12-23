@@ -74,7 +74,7 @@ class _Tab1State extends State<Tab1> with AutomaticKeepAliveClientMixin<Tab1> {
                 child: Card(
                   child: ListTile(
                     leading: Icon(Icons.date_range),
-                    title: Text(DateFormat.yMMMMd().format(lstback[3]).toString(), style: KTSR3StyleSmall1),
+                    title: Text(DateFormat.yMMMMd('ru').format(lstback[3]).toString(), style: KTSR3StyleSmall1),
                   ),
                 ),
               ),
