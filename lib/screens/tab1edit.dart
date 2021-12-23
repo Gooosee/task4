@@ -4,20 +4,22 @@ import 'package:intl/intl.dart';
 
 import '../constants.dart';
 
+
+
 class Tab1Edit extends StatefulWidget {
-  List<String> lst;
+  List lst;
   Tab1Edit(this.lst, {Key? key}) : super(key: key);
 
   @override
   _Tab1EditState createState() => _Tab1EditState(lst);
+
 }
 
 class _Tab1EditState extends State<Tab1Edit> {
-  List<String> lst;
+  List lst;
   _Tab1EditState(this.lst);
 
-  DateTime selectedDate = DateTime.now();
-
+  DateTime selectedDate = DateTime(1900);
 
   _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -39,8 +41,10 @@ class _Tab1EditState extends State<Tab1Edit> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> lst1 = lst;
-
+    List lst1 = lst;
+    List lSave = lst;
+    if (selectedDate == DateTime(1900)) selectedDate = lst[3];
+    print(selectedDate);
     final ButtonStyle style =
     TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
     var controller = MaskedTextController(mask: '+0(000)-000-00-00');
@@ -51,11 +55,11 @@ class _Tab1EditState extends State<Tab1Edit> {
       appBar: AppBar(
         title: const Text('Изменение'),
         leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: () {
-          lst1[3] = DateFormat.yMMMMd().format(selectedDate.toLocal());
-          Navigator.of(context).pop(lst);
+          print(lSave);
+          Navigator.of(context).pop(lSave);
+
         }),
         actions: const <Widget>[
-
           Center (
             child: Text('Баланс: 150 баллов', style: TextStyle(fontSize: 20, ), textAlign: TextAlign.center,),
           ),
@@ -107,12 +111,21 @@ class _Tab1EditState extends State<Tab1Edit> {
                 child: Card(
                   child: ListTile(
                     leading: Icon(Icons.mail),
-                    title: TextFormField(style: KTSR3StyleSmall1, initialValue: lst1[2]),
+                    title: TextFormField(style: KTSR3StyleSmall1, initialValue: lst1[2], decoration: const InputDecoration(
+                        labelText: 'Електронная почта *',
+                    ),
+                        onChanged: (String? value){
+                          lst1[2] = value!;
+                          debugPrint(value);
+                        },
+                        validator: (String? value) {
+                          return (value == null) ? 'Это обязательное поле для ввода' : null;
+                        },)
                   ),
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25),
+                padding: const EdgeInsets.symmetric(horizontal: 25),
 
                 child: Card(
                   child: ListTile(
@@ -120,12 +133,19 @@ class _Tab1EditState extends State<Tab1Edit> {
                     leading: const Icon(Icons.date_range),
 
                     title: Text(DateFormat.yMMMMd().format(selectedDate.toLocal()), style: KTSR3StyleSmall1),
-                    trailing: IconButton(icon: Icon(Icons.edit), onPressed: (){
+                    trailing: IconButton(icon: const Icon(Icons.edit), onPressed: (){
                       _selectDate(context);
                     },),
                   ),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.all(5),
+                child: ElevatedButton(onPressed: (){
+                  lst1[3] = selectedDate;
+                  Navigator.of(context).pop(lst1);
+                }, child: const Text("Сохранить", style: tahinaStyleBig2),),
+              )
             ]
         ),
       ),

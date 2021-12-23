@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:task4/screens/tab1edit.dart';
 import 'tab1edit.dart';
 import '../constants.dart';
@@ -15,9 +16,10 @@ class _Tab1State extends State<Tab1> with AutomaticKeepAliveClientMixin<Tab1> {
   void initState() {
     super.initState();
   }
-  List<String> lstback = ['Фамилия Имя Отчество', '+7(937)-145-77-25', 'a@gmail.com', '20 December, 2021'];
+  List lstback = ['Фамилия Имя Отчество', '+7(937)-145-77-25', 'a@gmail.com', DateTime.now()];
   @override
   Widget build(BuildContext context) {
+
     final ButtonStyle style =
     TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
 
@@ -72,7 +74,7 @@ class _Tab1State extends State<Tab1> with AutomaticKeepAliveClientMixin<Tab1> {
                 child: Card(
                   child: ListTile(
                     leading: Icon(Icons.date_range),
-                    title: Text(lstback[3], style: KTSR3StyleSmall1),
+                    title: Text(DateFormat.yMMMMd().format(lstback[3]).toString(), style: KTSR3StyleSmall1),
                   ),
                 ),
               ),
