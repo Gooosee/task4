@@ -39,9 +39,6 @@ CREATE TABLE $tableRent (
  ${RentFields.endDatetime} $stringType,
  ${RentFields.sum} $doubleType
  ) 
- CREATE TABLE $tableUser (
- 
- )  
 ''');
   }
 
@@ -87,13 +84,9 @@ CREATE TABLE $tableRent (
     );
   }
 
-  Future<int> updateUser(User user) async {
-    
-  }
-
-  Future close() async {
+  /*Future close() async {
     final db = await instance.database;
 
     db.close();
-  }
+  }*/
 }
