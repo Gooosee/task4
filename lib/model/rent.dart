@@ -1,4 +1,4 @@
-final String tableRent = 'rent';
+const String tableRent = 'rent';
 
 class RentFields {
   static final List<String> values = [
@@ -20,8 +20,8 @@ class Rent {
   final int rate;
   final String place;
   final DateTime startDatetime;
-  final DateTime endDatetime;
-  final double sum;
+  final DateTime? endDatetime;
+  final double? sum;
 
   const Rent({
     this.id,
@@ -57,8 +57,8 @@ class Rent {
     rate: json[RentFields.rate] as int,
     place: json[RentFields.place] as String,
     startDatetime: DateTime.parse(json[RentFields.startDatetime] as String),
-    endDatetime: DateTime.parse(json[RentFields.endDatetime] as String),
-    sum: json[RentFields.sum] as double,
+    endDatetime: DateTime.tryParse(json[RentFields.endDatetime].toString()),
+    sum: json[RentFields.sum] != null ? json[RentFields.sum] as double : null,
   );
 
   Map<String, Object?> toJson() => {
@@ -67,7 +67,7 @@ class Rent {
     RentFields.rate: rate,
     RentFields.place: place,
     RentFields.startDatetime: startDatetime.toIso8601String(),
-    RentFields.endDatetime: endDatetime.toIso8601String(),
+    RentFields.endDatetime: endDatetime != null ? endDatetime!.toIso8601String() : null,
     RentFields.sum: sum,
   };
 }

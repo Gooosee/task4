@@ -30,22 +30,25 @@ class NotesDatabase {
     final doubleType = 'DOUBLE';
 
     await db.execute('''
-CREATE TABLE $tableRent(
+CREATE TABLE $tableRent (
  ${RentFields.id} $idType,
  ${RentFields.name} $stringType,
  ${RentFields.rate} $intType,
  ${RentFields.place} $stringType,
  ${RentFields.startDatetime} $stringType,
  ${RentFields.endDatetime} $stringType,
- ${RentFields.sum} $doubleType,
-)   
+ ${RentFields.sum} $doubleType
+ ) 
+ CREATE TABLE $tableUser (
+ 
+ )  
 ''');
   }
 
-  Future<Rent> create(Rent rent) async {
+  Future<Rent> create(Rent rent, String table) async {
     final db = await instance.database;
 
-    final id = await db.insert(tableRent, rent.toJson());
+    final id = await db.insert(table, rent.toJson());
     return rent.copy(id: id);
   }
 
@@ -67,15 +70,13 @@ CREATE TABLE $tableRent(
     }
   }
 
-  Future<List<Rent>> readAllNotes() async {
+  Future<List<Rent>> readAllNotes(String table) async {
     final db = await instance.database;
-
-    final result = await db.query(tableRent);
-
+    final result = await db.query(table);
     return result.map((json) => Rent.fromJson(json)).toList();
   }
 
-  Future<int> update(Rent rent) async {
+  Future<int> updateRent(Rent rent) async {
     final db = await instance.database;
     
     return db.update(
@@ -84,6 +85,10 @@ CREATE TABLE $tableRent(
         where: '${RentFields.id} = ?',
         whereArgs: [rent.id],
     );
+  }
+
+  Future<int> updateUser(User user) async {
+    
   }
 
   Future close() async {
