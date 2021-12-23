@@ -24,8 +24,9 @@ class _Tab1State extends State<Tab1> with AutomaticKeepAliveClientMixin<Tab1> {
       appBar: AppBar(
         title: const Text('Главная'),
         actions: <Widget>[
+          const Icon(Icons.attach_money),
           const Center (
-            child: Text('Баланс: 150 баллов', style: TextStyle(fontSize: 20, ), textAlign: TextAlign.center,),
+            child: Text('150  ', textAlign: TextAlign.center,),
           ),
           IconButton(onPressed: () async {
             final result = await Navigator.of(context).push(MaterialPageRoute(builder: (context) => Tab1Edit(lstback)));

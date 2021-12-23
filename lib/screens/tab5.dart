@@ -200,7 +200,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             return ExpansionPanel(
               headerBuilder: (BuildContext context, bool isExpanded) {
                 return ListTile(
-                  title: Text(item.headerValue, style: tahinaStyleNormal1),
+                  title: Text(item.headerValue, style: tahinaStyleNormal2),
                   subtitle:
                   const Text('Вопрос', style: KTSR3StyleSmall1),
                 );
@@ -208,9 +208,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               body: Column (
                   children : [
                       ListTile(
-                        title: Text(item.expandedValue, style: KTSR3StyleSmall1,),
+                        title: Text(item.expandedValue, style: KTSR3StyleSmall2,),
                         subtitle:
-                        const Text('Ответ', style: KTSR3StyleSmall1),
+                        const Text('Ответ', style: KTSR3StyleSmall2),
                         onTap: () {
                         }),
                   ]

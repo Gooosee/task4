@@ -58,8 +58,10 @@ class _Tab1EditState extends State<Tab1Edit> {
 
         }),
         actions: const <Widget>[
+          Icon(Icons.attach_money),
           Center (
-            child: Text('Баланс: 150 баллов', style: TextStyle(fontSize: 20, ), textAlign: TextAlign.center,),
+
+            child: Text('150   ', textAlign: TextAlign.center,),
           ),
 
         ],
