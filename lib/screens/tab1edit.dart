@@ -45,9 +45,6 @@ class _Tab1EditState extends State<Tab1Edit> {
     List lst1 = lst;
     List lSave = lst;
     if (selectedDate == DateTime(1900)) selectedDate = lst[3];
-    print(selectedDate);
-    final ButtonStyle style =
-    TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
     var maskFormatter = new MaskTextInputFormatter(mask: '+#(###)-###-##-##', filter: { "#": RegExp(r'[0-9]') });
     return WillPopScope(
         onWillPop: () async => false,
@@ -61,8 +58,10 @@ class _Tab1EditState extends State<Tab1Edit> {
 
         }),
         actions: const <Widget>[
+          Icon(Icons.attach_money),
           Center (
-            child: Text('Баланс: 150 баллов', style: TextStyle(fontSize: 20, ), textAlign: TextAlign.center,),
+
+            child: Text('150   ', textAlign: TextAlign.center,),
           ),
 
         ],
