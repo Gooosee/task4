@@ -48,6 +48,7 @@ class _Tab1State extends State<Tab1> with AutomaticKeepAliveClientMixin<Tab1> {
 
   Future<File> get _localFile async {
     final path = await _localPath;
+
     return File('$path/user.xml');
   }
 
@@ -74,8 +75,8 @@ class _Tab1State extends State<Tab1> with AutomaticKeepAliveClientMixin<Tab1> {
 
 
   Future<User> readXml(BuildContext context) async {
-    //writeXml(context);
     final file = await _localFile;
+    if (!await file.exists()){writeXml(context);}
     var xmlString = await file.readAsString();
     var raw = xml.XmlDocument.parse(xmlString);
 
