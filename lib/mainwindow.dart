@@ -63,11 +63,11 @@ class _MainWindowState extends State<MainWindow> {
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.history),
-                title: Text('Tab4'),
+                title: Text('История'),
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.report_problem),
-                title: Text('Tab5'),
+                title: Text('Помощь'),
               ),
             ]),
         backgroundColor: Theme.of(context).primaryColor,

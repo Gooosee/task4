@@ -28,6 +28,7 @@ class NotesDatabase {
     final stringType = 'STRING';
     final intType = 'INTEGER';
     final doubleType = 'DOUBLE';
+
     await db.execute('''
 CREATE TABLE $tableRent (
  ${RentFields.id} $idType,
@@ -37,7 +38,7 @@ CREATE TABLE $tableRent (
  ${RentFields.startDatetime} $stringType,
  ${RentFields.endDatetime} $stringType,
  ${RentFields.sum} $doubleType
- )  
+ ) 
 ''');
   }
 
@@ -83,9 +84,9 @@ CREATE TABLE $tableRent (
     );
   }
 
-  Future close() async {
+  /*Future close() async {
     final db = await instance.database;
 
     db.close();
-  }
+  }*/
 }
