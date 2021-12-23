@@ -2,7 +2,7 @@ const String tableRent = 'rent';
 
 class RentFields {
   static final List<String> values = [
-    id, name, rate, place, startDatetime, endDatetime, sum
+    id, name, rate, place, startDatetime, endDatetime, sum, used, article
   ];
 
   static final String id = '_id';
@@ -12,6 +12,8 @@ class RentFields {
   static final String startDatetime = 'startDatetime';
   static final String endDatetime = 'endDatetime';
   static final String sum = 'sum';
+  static final String used = 'used';
+  static final String article = 'article';
 }
 
 class Rent {
@@ -22,6 +24,8 @@ class Rent {
   final DateTime startDatetime;
   final DateTime? endDatetime;
   final double? sum;
+  final bool used;
+  final String article;
 
   const Rent({
     this.id,
@@ -31,6 +35,8 @@ class Rent {
     required this.startDatetime,
     required this.endDatetime,
     required this.sum,
+    required this.used,
+    required this.article,
   });
 
   Rent copy({
@@ -41,6 +47,8 @@ class Rent {
   DateTime? startDatetime,
   DateTime? endDatetime,
   double? sum,
+  bool? used,
+  String? article,
   }) => Rent(
     id: id ?? this.id,
     name: name ?? this.name,
@@ -49,6 +57,8 @@ class Rent {
     startDatetime: startDatetime ?? this.startDatetime,
     endDatetime: endDatetime ?? this.endDatetime,
     sum: sum ?? this.sum,
+    used: used ?? this.used,
+    article: article ?? this.article,
   );
 
   static Rent fromJson(Map<String, Object?> json) => Rent(
@@ -59,6 +69,8 @@ class Rent {
     startDatetime: DateTime.parse(json[RentFields.startDatetime] as String),
     endDatetime: DateTime.tryParse(json[RentFields.endDatetime].toString()),
     sum: json[RentFields.sum] != null ? json[RentFields.sum] as double : null,
+    used: json[RentFields.used] == 1,
+    article: json[RentFields.article] as String,
   );
 
   Map<String, Object?> toJson() => {
@@ -69,5 +81,7 @@ class Rent {
     RentFields.startDatetime: startDatetime.toIso8601String(),
     RentFields.endDatetime: endDatetime != null ? endDatetime!.toIso8601String() : null,
     RentFields.sum: sum,
+    RentFields.used: used ? 1 : 0,
+    RentFields.article: article,
   };
 }

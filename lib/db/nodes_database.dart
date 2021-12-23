@@ -20,7 +20,7 @@ class NotesDatabase {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, filePath);
     
-    return await openDatabase(path, version: 1, onCreate: _createDB);
+    return await openDatabase(path, version: 3, onCreate: _createDB);
   }
 
   Future _createDB(Database db, int version) async {
@@ -28,6 +28,7 @@ class NotesDatabase {
     final stringType = 'STRING';
     final intType = 'INTEGER';
     final doubleType = 'DOUBLE';
+    final boolType = 'BOOLEAN NOT NULL';
 
     await db.execute('''
 CREATE TABLE $tableRent (
@@ -37,7 +38,9 @@ CREATE TABLE $tableRent (
  ${RentFields.place} $stringType,
  ${RentFields.startDatetime} $stringType,
  ${RentFields.endDatetime} $stringType,
- ${RentFields.sum} $doubleType
+ ${RentFields.sum} $doubleType,
+ ${RentFields.used} $boolType,
+ ${RentFields.article} $stringType
  ) 
 ''');
   }
@@ -49,21 +52,39 @@ CREATE TABLE $tableRent (
     return rent.copy(id: id);
   }
 
-  Future<Rent> readNote(int id) async {
+  Future<Rent> readNoteWithUsed() async {
     final db = await instance.database;
     
     final maps = await db.query(
       tableRent,
       columns: RentFields.values,
-      where: '${RentFields.id} = ?',
-      whereArgs: [id],
+      where: '${RentFields.used} = "1"',
+      //whereArgs: [id],
     );
 
     if(maps.isNotEmpty){
       return Rent.fromJson(maps.first);
     }
     else{
-      throw Exception('ID $id not found');
+      throw Exception('Used product not found');
+    }
+  }
+
+  Future<Rent> readNoteWithArticle(String article) async {
+    final db = await instance.database;
+
+    final maps = await db.query(
+      tableRent,
+      columns: RentFields.values,
+      where: '${RentFields.article} = ?',
+      whereArgs: [article],
+    );
+
+    if(maps.isNotEmpty){
+      return Rent.fromJson(maps.first);
+    }
+    else{
+      throw Exception('Product with this article not found');
     }
   }
 
@@ -84,9 +105,14 @@ CREATE TABLE $tableRent (
     );
   }
 
-  /*Future close() async {
+  Future delete() async {
+    return await _database!.rawDelete('DELETE FROM rent');
+  }
+
+  Future close() async {
+    delete();
     final db = await instance.database;
 
     db.close();
-  }*/
+  }
 }
