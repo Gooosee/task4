@@ -36,7 +36,7 @@ class _Tab4State extends State<Tab4> with AutomaticKeepAliveClientMixin<Tab4> {
 
   /*@override
   void dispose() {
-    NotesDatabase.instance.close();
+    NotesDatabase.instance.delete();
     super.dispose();
   }*/
 
@@ -44,18 +44,20 @@ class _Tab4State extends State<Tab4> with AutomaticKeepAliveClientMixin<Tab4> {
     setState(() => isLoading = true);
     rents = await NotesDatabase.instance.readAllNotes(tableRent);
     setState(() => isLoading = false);
-    if (rents.isEmpty) {
+    /*if (rents.length == 3) {
       RentDefolt().addRent();
-    }
+    }*/
     for(int i = 0; i < rents.length; ++i){
       _data.add(
         Item(
           expandedValue: [
             rents[i].place,
             DateFormat.yMMMMd('ru').add_Hm().format(rents[i].startDatetime).toString(),
-            rents[i].endDatetime != null ? DateFormat.yMMMMd('ru').add_Hm().format(rents[i].endDatetime!).toString() : '-',
+            rents[i].endDatetime != null ?
+            DateFormat.yMMMMd('ru').add_Hm().format(rents[i].endDatetime!).toString() : '-',
           ],
-          headerValue: rents[i].name + '\n' + DateFormat.yMMMMd('ru').add_Hm().format(rents[i].startDatetime).toString()
+          headerValue: rents[i].name + '\n'
+              + DateFormat.yMMMMd('ru').add_Hm().format(rents[i].startDatetime).toString()
         )
       );
     }
@@ -66,17 +68,17 @@ class _Tab4State extends State<Tab4> with AutomaticKeepAliveClientMixin<Tab4> {
         appBar: AppBar(
           title: Text('История'),
         ),
-        body: Center(
-          child: Column(
-            children: [isLoading
+        body: SingleChildScrollView(
+          child: Center(
+              child: isLoading
                 ? CircularProgressIndicator()
                 : rents.isEmpty
                 ? Text("Пусто", style: tahinaStyleBig1)
                 : Container(
                   child: _buildPanel(),
               ),
-          ])
-        )
+            ),
+          )
     );
   }
 
