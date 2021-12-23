@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
 
+double Balance = 150;
+
+bool rentFlag = true;
+
 const TextStyle tahinaStyleBig1 = TextStyle(fontSize: 30, fontFamily: "Tihana", fontWeight: FontWeight.bold);
 
 const TextStyle tahinaStyleNormal1 = TextStyle(fontSize: 30, fontFamily: "Tihana", fontWeight: FontWeight.normal);

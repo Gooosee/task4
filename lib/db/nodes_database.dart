@@ -28,7 +28,6 @@ class NotesDatabase {
     final stringType = 'STRING';
     final intType = 'INTEGER';
     final doubleType = 'DOUBLE';
-
     await db.execute('''
 CREATE TABLE $tableRent (
  ${RentFields.id} $idType,
@@ -38,9 +37,6 @@ CREATE TABLE $tableRent (
  ${RentFields.startDatetime} $stringType,
  ${RentFields.endDatetime} $stringType,
  ${RentFields.sum} $doubleType
- ) 
- CREATE TABLE $tableUser (
- 
  )  
 ''');
   }
@@ -85,10 +81,6 @@ CREATE TABLE $tableRent (
         where: '${RentFields.id} = ?',
         whereArgs: [rent.id],
     );
-  }
-
-  Future<int> updateUser(User user) async {
-    
   }
 
   Future close() async {

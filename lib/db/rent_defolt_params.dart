@@ -15,6 +15,6 @@ class RentDefolt {
       endDatetime: null,
       sum: null,
     );
-    await NotesDatabase.instance.create(rent);
+    await NotesDatabase.instance.create(rent, "rent");
   }
 }

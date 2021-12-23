@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:intl/intl.dart';
+import 'package:task4/screens/tab1.dart';
 
 import '../constants.dart';
 
 
 
 class Tab1Edit extends StatefulWidget {
-  List lst;
-  Tab1Edit(this.lst, {Key? key}) : super(key: key);
+  User us;
+  Tab1Edit(this.us, {Key? key}) : super(key: key);
 
   @override
-  _Tab1EditState createState() => _Tab1EditState(lst);
+  _Tab1EditState createState() => _Tab1EditState(us);
 
 }
-
 class _Tab1EditState extends State<Tab1Edit> {
-  List lst;
-  _Tab1EditState(this.lst);
+  User us;
+  _Tab1EditState(this.us);
 
   DateTime selectedDate = DateTime(1900);
 
@@ -42,10 +42,10 @@ class _Tab1EditState extends State<Tab1Edit> {
   @override
   Widget build(BuildContext context) {
 
-    List lst1 = lst;
-    List lSave = lst;
-    if (selectedDate == DateTime(1900)) selectedDate = lst[3];
-    var maskFormatter = new MaskTextInputFormatter(mask: '+#(###)-###-##-##', filter: { "#": RegExp(r'[0-9]') });
+    User us1 = us;
+    User lSave = us;
+    if (selectedDate == DateTime(1900)) selectedDate = us.dob;
+    var maskFormatter = MaskTextInputFormatter(mask: '+#(###)-###-##-##', filter: { "#": RegExp(r'[0-9]') });
     return WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
@@ -80,10 +80,10 @@ class _Tab1EditState extends State<Tab1Edit> {
                 child: TextFormField(textAlign: TextAlign.center, style: tahinaStyleBig1, decoration: const InputDecoration(
                     labelText: 'ФИО *',
                 ),
-                  initialValue: lst[0],
+                  initialValue: us.name,
                   autovalidateMode: AutovalidateMode.always,
                   onChanged: (String? value){
-                    lst1[0] = value!;
+                    us1.name = value!;
                     debugPrint(value);
                   },
                   validator: (value) {
@@ -107,11 +107,11 @@ class _Tab1EditState extends State<Tab1Edit> {
                       decoration: const InputDecoration(
                         labelText: 'Номер телефона *',
                         border: InputBorder.none,
-                        hintText: '+7(777)-777-77-77'
+                        hintText: '+7(777) 777-77-77'
                       ), style: KTSR3StyleSmall1,
-                      initialValue: lst[1],
+                      initialValue: us.number,
                       onChanged: (String? value){
-                        lst1[1] = value!;
+                        us1.number = value!;
                         debugPrint(value);
                       },
                         validator: (value) {
@@ -129,14 +129,14 @@ class _Tab1EditState extends State<Tab1Edit> {
                 child: Card(
                   child: ListTile(
                     leading: Icon(Icons.mail),
-                    title: TextFormField(style: KTSR3StyleSmall1, initialValue: lst1[2], decoration: const InputDecoration(
+                    title: TextFormField(style: KTSR3StyleSmall1, initialValue: us1.email, decoration: const InputDecoration(
                       labelText: 'Адрес электронной почты *',
                       border: InputBorder.none,
                       hintText: 'example@gmail.com'
                     ),
                         autovalidateMode: AutovalidateMode.always,
                         onChanged: (String? value){
-                          lst1[2] = value!;
+                          us1.email = value!;
                           debugPrint(value);
                         },
                         validator: (value) {
@@ -166,8 +166,8 @@ class _Tab1EditState extends State<Tab1Edit> {
               Padding(
                 padding: const EdgeInsets.all(5),
                 child: ElevatedButton(onPressed: (){
-                  lst1[3] = selectedDate;
-                  Navigator.of(context).pop(lst1);
+                  us1.dob = selectedDate;
+                  Navigator.of(context).pop(us1);
                 }, child: const Text("Сохранить", style: tahinaStyleBig2),),
               )
             ]
